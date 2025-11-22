@@ -2,79 +2,32 @@
 
 AI voice agent that answers calls 24/7, books appointments, and handles frustrated customers with empathy. Built for home services SMBs (plumbers, HVAC, electricians).
 
+## 🎉 Everything Runs on Vercel!
+
+The backend has been converted to Vercel API routes (TypeScript). **No separate backend hosting needed!**
+
 ## 🚀 Quick Start - Run Locally
 
 ### Prerequisites
 - Node.js 18+ and npm
-- Python 3.11+ and pip
-- LiveKit Server (cloud or self-hosted)
 - API Keys (OpenAI, ElevenLabs, LiveKit, Google Calendar)
 
-### Three Terminals Required
+### Setup
 
-Open **3 separate terminal windows**:
-
-#### Terminal 1: FastAPI Backend
 ```bash
-cd backend
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-python main.py
-```
-Backend runs at: **http://localhost:8000**
-
-#### Terminal 2: LiveKit Agent Worker
-```bash
-cd backend
-source .venv/bin/activate
-python voice-agent.py dev
-```
-Agent connects to LiveKit and handles voice conversations.
-
-#### Terminal 3: Next.js Frontend
-```bash
+# Navigate to web folder
 cd web
-npm run dev
-```
-Frontend runs at: **http://localhost:3000**
-
----
-
-## 📁 Project Structure
-
-```
-customer-experience-lab/
-├── web/                    # Next.js 14 frontend (Vercel-ready)
-│   ├── app/               # Next.js App Router pages
-│   ├── components/        # React components
-│   └── lib/               # API client & utilities
-├── backend/               # FastAPI backend + LiveKit agent
-│   ├── main.py           # FastAPI REST API server
-│   ├── voice-agent.py    # LiveKit voice agent worker
-│   └── requirements.txt  # Python dependencies
-├── test/                  # Test notebooks
-└── vercel.json           # Vercel deployment config
-```
-
----
-
-## 🛠️ Setup Instructions
-
-### 1. Backend Setup
-
-```bash
-cd backend
-
-# Create virtual environment
-python3 -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
 
 # Install dependencies
-pip install -r requirements.txt
+npm install
+
+# Create .env.local file
+cp .env.example .env.local  # (if exists) or create manually
 ```
 
-### 2. Environment Variables
+### Environment Variables
 
-Create `backend/.env`:
+Create `web/.env.local`:
 ```env
 OPENAI_API_KEY=sk-your-key-here
 ELEVENLABS_API_KEY=your-key-here
@@ -82,48 +35,99 @@ LIVEKIT_URL=wss://your-livekit-server.com
 LIVEKIT_API_KEY=your-api-key
 LIVEKIT_API_SECRET=your-api-secret
 GOOGLE_CALENDAR_ID=your-calendar-id@group.calendar.google.com
+GOOGLE_CREDENTIALS={"type":"service_account",...}  # Full JSON as string
 ```
 
-### 3. Frontend Setup
+### Run Development Server
 
 ```bash
 cd web
-npm install
+npm run dev
 ```
 
-Create `web/.env.local` (optional):
-```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
+Open **http://localhost:3000**
+
+**That's it!** No Python backend needed. Everything runs in Next.js.
+
+---
+
+## 🌐 Deploy to Vercel (One-Click!)
+
+### Step 1: Push to GitHub
+
+```bash
+git add .
+git commit -m "Convert to Vercel API routes"
+git push
+```
+
+### Step 2: Deploy on Vercel
+
+1. Go to https://vercel.com
+2. **Import Project** from GitHub
+3. **Configure**:
+   - **Root Directory**: `web`
+   - **Framework**: Next.js (auto-detected)
+4. **Add Environment Variables** (see VERCEL_SETUP.md)
+5. **Deploy!**
+
+**Done!** Your app is live on Vercel. 🎉
+
+---
+
+## 📁 Project Structure
+
+```
+customer-experience-lab/
+├── web/                    # Next.js 14 app (deploys to Vercel)
+│   ├── app/
+│   │   ├── api/           # API routes (replaces FastAPI backend)
+│   │   │   ├── start-demo/route.ts
+│   │   │   ├── book-appointment/route.ts
+│   │   │   └── ask-company/route.ts
+│   │   ├── demo/          # Demo page
+│   │   └── page.tsx       # Landing page
+│   ├── components/        # React components
+│   ├── lib/
+│   │   ├── api.ts         # API client (uses relative paths)
+│   │   └── company_rag.json
+│   └── package.json
+├── backend/                # Python backend (kept for reference)
+│   ├── main.py           # Old FastAPI (now converted to API routes)
+│   └── voice-agent.py    # LiveKit agent (needs separate hosting)
+└── vercel.json           # Vercel config
 ```
 
 ---
 
-## 🧪 Testing
+## 🛠️ API Routes
 
-1. Start all 3 services (see Quick Start above)
-2. Open http://localhost:3000
-3. Click "Start Demo Call"
-4. Talk to the AI agent through voice
-5. Book appointment through conversation
+All API endpoints are now in `web/app/api/`:
 
-**Important:** Use `http://localhost:3000` (not `127.0.0.1`) for microphone access.
+- `POST /api/start-demo` - Creates LiveKit room and generates persona
+- `POST /api/book-appointment` - Books appointment in Google Calendar  
+- `POST /api/ask-company` - Queries company knowledge base
+
+These run as serverless functions on Vercel.
 
 ---
 
-## 🌐 Deployment
+## ⚠️ About LiveKit Agent
 
-See **[DEPLOYMENT.md](./DEPLOYMENT.md)** for complete deployment instructions.
+The LiveKit agent worker (`backend/voice-agent.py`) is a **long-running process** that can't run on Vercel (serverless functions have time limits).
 
-**Quick Summary:**
-- **Frontend**: Deploy to Vercel (point to `web/` folder)
-- **Backend**: Deploy to Railway/Render (point to `backend/` folder)
-- **LiveKit Agent**: Deploy as separate worker (same platform as backend)
+**Options:**
+1. **LiveKit Cloud** - They can host your agent (recommended)
+2. **Run locally** - For demos, run `python voice-agent.py dev` locally
+3. **Free tier services** - Railway/Render (just for the agent worker)
+
+The frontend and API work perfectly on Vercel without the agent. The agent is only needed for actual voice conversations.
 
 ---
 
 ## 📚 Features
 
-- 🎙️ **24/7 Voice AI** - Natural voice conversations
+- 🎙️ **24/7 Voice AI** - Natural voice conversations (requires agent)
 - 📅 **Smart Booking** - Google Calendar integration
 - 💰 **Distance Pricing** - Google Maps distance calculation
 - 🧠 **Empathetic AI** - Trained on real customer complaints
@@ -134,54 +138,40 @@ See **[DEPLOYMENT.md](./DEPLOYMENT.md)** for complete deployment instructions.
 
 ## 🛠️ Tech Stack
 
-**Frontend:**
+**Frontend & API (Vercel):**
 - Next.js 14 (App Router)
 - TypeScript
 - Tailwind CSS
 - shadcn/ui
 - LiveKit Client SDK
+- OpenAI API
+- Google Calendar API
 
-**Backend:**
-- FastAPI
-- LiveKit Agents v1.0+
+**Agent (Separate Hosting):**
+- Python
+- LiveKit Agents
 - OpenAI GPT-4
 - ElevenLabs TTS
 - Deepgram STT
-- Google Calendar API
-
----
-
-## 📖 API Endpoints
-
-- `POST /api/start-demo` - Creates LiveKit room and generates persona
-- `POST /api/book-appointment` - Books appointment in Google Calendar
-- `POST /api/ask-company` - Queries company knowledge base
-
-See http://localhost:8000/docs for interactive API documentation.
 
 ---
 
 ## 🐛 Troubleshooting
 
-### "getUserMedia not available"
-- Use `http://localhost:3000` (not `127.0.0.1`)
-- Grant microphone permissions in browser
-- HTTPS required in production (Vercel provides this)
+### API routes not working
+- Check environment variables in Vercel
+- Verify `GOOGLE_CREDENTIALS` is valid JSON string
+- Check Vercel function logs
 
-### Backend won't start
-- Check `backend/.env` exists with all variables
-- Verify virtual environment is activated
-- Check dependencies: `pip list | grep fastapi`
-
-### LiveKit agent won't connect
-- Verify LiveKit environment variables
+### LiveKit connection fails
+- Verify `LIVEKIT_URL`, `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`
 - Check LiveKit server is running
-- Review agent logs for connection errors
+- Ensure agent worker is running (if using voice)
 
-### Frontend can't connect to backend
-- Verify backend is running on port 8000
-- Check `NEXT_PUBLIC_API_URL` in `web/.env.local`
-- Check CORS settings in `backend/main.py`
+### Google Calendar errors
+- Verify `GOOGLE_CREDENTIALS` is set correctly (full JSON as string)
+- Check `GOOGLE_CALENDAR_ID` is correct
+- Verify service account has calendar permissions
 
 ---
 
@@ -191,10 +181,6 @@ MIT
 
 ---
 
-## 🤝 Contributing
-
-This is a demo project. Feel free to fork and customize for your needs!
-
----
-
 **Built with ❤️ for SMBs who never want to miss a call again.**
+
+**Now 100% Vercel-ready!** 🚀

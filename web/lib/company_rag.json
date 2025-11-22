@@ -1,0 +1,152 @@
+{
+    "company_name": "QuickFix Plumbing",
+    "location": "Central London",
+    "coverage_radius": "20 miles from Piccadilly Circus",
+    
+    "services": [
+      {
+        "id": "emergency",
+        "name": "Emergency Callout",
+        "base_price": 150,
+        "description": "24/7 urgent repairs for burst pipes, flooding, no water",
+        "response_time": "Within 1 hour",
+        "availability": "24/7"
+      },
+      {
+        "id": "standard",
+        "name": "Standard Repair",
+        "base_price": 80,
+        "description": "Scheduled repairs for leaks, drips, toilet issues",
+        "response_time": "Same day or next day",
+        "availability": "Mon-Fri 8am-6pm"
+      },
+      {
+        "id": "boiler",
+        "name": "Boiler Service",
+        "base_price": 120,
+        "description": "Annual boiler maintenance and repairs",
+        "response_time": "Within 3 days",
+        "availability": "Mon-Fri 8am-6pm"
+      },
+      {
+        "id": "drainage",
+        "name": "Drain Unblocking",
+        "base_price": 95,
+        "description": "Clear blocked drains, sinks, toilets",
+        "response_time": "Within 4 hours",
+        "availability": "Mon-Sat 8am-8pm"
+      }
+    ],
+    
+    "pricing_rules": {
+      "base_travel_radius": 10,
+      "travel_fee_per_mile": 2,
+      "emergency_multiplier": 1.5,
+      "weekend_surcharge": 25,
+      "evening_surcharge": 20
+    },
+    
+    "common_issues": [
+      {
+        "issue": "burst pipe",
+        "urgency": "emergency",
+        "recommended_service": "emergency",
+        "immediate_advice": "Turn off water at mains immediately. Send emergency plumber now.",
+        "avg_resolution_time": "1-2 hours",
+        "typical_cost_range": "£150-£400"
+      },
+      {
+        "issue": "leaking tap",
+        "urgency": "standard",
+        "recommended_service": "standard",
+        "immediate_advice": "Turn off tap water supply under sink. Can wait for scheduled visit.",
+        "avg_resolution_time": "30 mins",
+        "typical_cost_range": "£80-£150"
+      },
+      {
+        "issue": "no hot water",
+        "urgency": "high",
+        "recommended_service": "boiler",
+        "immediate_advice": "Check boiler pressure and power. If no obvious fix, book boiler service.",
+        "avg_resolution_time": "1-2 hours",
+        "typical_cost_range": "£120-£300"
+      },
+      {
+        "issue": "blocked toilet",
+        "urgency": "high",
+        "recommended_service": "drainage",
+        "immediate_advice": "Try plunger first. If still blocked, drainage service needed.",
+        "avg_resolution_time": "30-60 mins",
+        "typical_cost_range": "£95-£180"
+      },
+      {
+        "issue": "flooding",
+        "urgency": "emergency",
+        "recommended_service": "emergency",
+        "immediate_advice": "Turn off water immediately. Move valuables. Emergency plumber dispatched.",
+        "avg_resolution_time": "1-3 hours",
+        "typical_cost_range": "£200-£600"
+      }
+    ],
+    
+    "faqs": [
+      {
+        "question": "Do you charge a callout fee?",
+        "answer": "No separate callout fee. Our pricing includes travel within 10 miles. Beyond that, £2 per mile."
+      },
+      {
+        "question": "How quickly can you get here?",
+        "answer": "Emergency: within 1 hour. Standard: same/next day. Depends on your location and our schedule."
+      },
+      {
+        "question": "Do you work weekends?",
+        "answer": "Yes! Emergency service is 24/7. Standard service Mon-Fri 8am-6pm, some Saturday slots available."
+      },
+      {
+        "question": "What payment methods do you accept?",
+        "answer": "Cash, card, bank transfer. Payment due on completion unless arranged otherwise."
+      }
+    ],
+    
+    "past_solutions": [
+      {
+        "problem": "Customer had burst pipe at 2am",
+        "solution": "Plumber arrived within 45 mins, isolated leak, temporary fix done, full repair scheduled next day",
+        "cost": "£180 emergency + £120 full repair = £300 total",
+        "customer_feedback": "Excellent response time, very professional"
+      },
+      {
+        "problem": "Boiler not heating water for 3 days",
+        "solution": "Replaced faulty pressure valve, serviced boiler, restored hot water same day",
+        "cost": "£165",
+        "customer_feedback": "Quick diagnosis, fair price"
+      }
+    ],
+    
+    "availability": {
+      "monday": "8:00-18:00",
+      "tuesday": "8:00-18:00",
+      "wednesday": "8:00-18:00",
+      "thursday": "8:00-18:00",
+      "friday": "8:00-18:00",
+      "saturday": "9:00-14:00",
+      "sunday": "Emergency only",
+      "emergency_24_7": true
+    },
+    
+    "team": [
+      {
+        "name": "Mike",
+        "role": "Lead Plumber",
+        "certifications": ["Gas Safe", "City & Guilds"],
+        "experience_years": 15
+      },
+      {
+        "name": "Sarah",
+        "role": "Plumber",
+        "certifications": ["Level 3 Plumbing"],
+        "experience_years": 8
+      }
+    ]
+  }
+

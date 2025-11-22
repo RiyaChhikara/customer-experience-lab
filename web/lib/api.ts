@@ -1,5 +1,5 @@
-// API client for FastAPI backend
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// API client - uses relative paths for Vercel API routes
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 export interface DemoRequest {
   business_type?: string;
