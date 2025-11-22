@@ -1,0 +1,8 @@
+default_project: ai-hack
+projects:
+    - name: ai-hack
+      project_id: p_3rvbl7yatot
+      url: wss://ai-hack-fgxf8eol.livekit.cloud
+      api_key: APIpum38KFrFBtB
+      api_secret: R7oBwjth6dw0gfYHrPiMtdGIajiGx424wyMPF38INjM
+device_name: laptop

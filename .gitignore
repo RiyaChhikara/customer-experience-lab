@@ -1,0 +1,41 @@
+# Environment variables
+backend/.env
+.env
+.env.local
+web/.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+backend/google-credentials.json
+*.pem
+*.key
+
+# Test files
+test/*.mp3
